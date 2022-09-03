@@ -1,10 +1,10 @@
-const router = require('express');
+const router = require('express').Router();
 const apiRoutes = require('./api');
 
 router.use('/api', apiRoutes);
 
 router.use((req, res) => {
-    res.status(404).send('<h1>Turn back now, for this way lies certain doom<h1>')
+    res.status(404).send('<h1>Turn back now, for this way lies certain doom!<h1>')
 })
 
 module.exports = router;

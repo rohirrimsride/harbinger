@@ -1,11 +1,11 @@
-const { Schema, model } = require('mongoose');
-const formatDate = require('../')
+const { Schema, Types, model } = require('mongoose');
+const formatDate = require('../utils/formatDate');
 
 const ReactionSchema = new Schema(
     {
         reactionId: {
-            type: ObjectId,
-            default: new ObjectId
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId()
         },
         reactionBody: {
             type: String,
@@ -57,10 +57,10 @@ const ThoughtsSchema = new Schema (
     }
 );
 
-ThoughtsSchema.virtual('friendCount').get(function() {
-    return this.friends.length;
+ThoughtsSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
 })
 
-const Thoughts = model('Thought', ThoughtsSchema);
+const Thoughts = model('Thoughts', ThoughtsSchema);
 
 module.exports = Thoughts;
