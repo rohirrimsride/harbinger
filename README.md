@@ -24,6 +24,12 @@
 
   ## Screenshot
   ![image](https://user-images.githubusercontent.com/96882225/188355408-e38e9bf6-1808-4877-abfb-f3571f758f94.png)
+  
+  ## Github Repo
+  https://github.com/rohirrimsride/harbinger
+  
+  ## Video Walkthrough
+  https://watch.screencastify.com/v/fzqaFrWWw7rC0EH1gJdd
 
   ## Tests
   N/A
