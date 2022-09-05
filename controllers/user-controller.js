@@ -51,10 +51,35 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    deleteUser({ params }, res) {  
-        User.findOneAndDelete({ _id: params.id })
-            .then(dbUserData => res.json(dbUserData))
-            .catch(err => res.json(err));
+    deleteUser({ params }, res) { 
+        User.findOne({ _id: params.id })
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
+            .select('-__v')
+            .then(dbUserData => {
+                console.log(dbUserData)
+                let thoughts = dbUserData.thoughts;
+                console.log(thoughts);
+                
+                const iterator1 = thoughts[Symbol.iterator]();
+                let _id;
+                for (const value of iterator1) {
+                    console.log(value.thoughtId);
+                    params.id = value.thoughtId;
+                    return deleteThought({_id: params.id});
+                }
+                
+                res.json(dbUserData)
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(400).json(err);
+            }); 
+        // User.findOneAndDelete({ _id: params.id })
+        //     .then(dbUserData => res.json(dbUserData))
+        //     .catch(err => res.json(err));
     },
 
     createUserFriend({ params }, res) {
