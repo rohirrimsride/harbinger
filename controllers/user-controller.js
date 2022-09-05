@@ -1,4 +1,5 @@
 const { User, Thoughts } = require('../models');
+const { deleteThought } = require('./thought-controller');
 
 const userController = {
     getAllUsers({ body }, res) {
@@ -39,7 +40,7 @@ const userController = {
     },
 
     updateUser({ params, body }, res) {
-        User.findOneAndUpdate({ _id: params.id, }, body)
+        User.findOneAndUpdate({ _id: params.id }, body)
             .then(dbUserData => {
                 if (!dbUserData) {
                     res.status(404).json({ message: 'There is no user with that ID' });
@@ -50,7 +51,7 @@ const userController = {
             .catch(err => res.json(err));
     },
 
-    deleteUser({ params }, res) {
+    deleteUser({ params }, res) {  
         User.findOneAndDelete({ _id: params.id })
             .then(dbUserData => res.json(dbUserData))
             .catch(err => res.json(err));
